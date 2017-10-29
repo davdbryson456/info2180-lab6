@@ -4,21 +4,29 @@
 
 <script type="text/javascript">
 
-	function search1(){
+	function search1(word){
 		var request= new XMLHttpRequest();
 		
 		request.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-               alert(request.responseText);
+               document.getElementById("result").innerHTML=request.responseText;
             }
         };
-        request.open("GET", "request.php?q=definition",true);
+        request.open("GET", "request.php?q="+word,true);
 		request.send();
-	}   
+	}  
+	
 </script>
 
 </head>
+<body style=color:purple;>
+<h1 style="color:black; font-size: 46px;">Web Dictionary</h1>    
+<form>Look up word:<input type="text" id="civic"></form>
+           
+<button id=search onclick="search1(civic.value)">Search</button> 
+<div id=result></div>
+</body>
 
-<button id=search onclick=search1()>Search</button>
 
 </html>
+
