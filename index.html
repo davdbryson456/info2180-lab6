@@ -1,0 +1,24 @@
+<html>
+
+<head>
+
+<script type="text/javascript">
+
+	function search1(){
+		var request= new XMLHttpRequest();
+		
+		request.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+               alert(request.responseText);
+            }
+        };
+        request.open("GET", "request.php?q=definition",true);
+		request.send();
+	}   
+</script>
+
+</head>
+
+<button id=search onclick=search1()>Search</button>
+
+</html>
