@@ -9,6 +9,7 @@
 		
 		request.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+            	
                document.getElementById("result").innerHTML=request.responseText;
             }
         };
@@ -16,15 +17,90 @@
 		request.send();
 	}  
 	
+window.onload=function(){
+	
+	var	getall=document.getElementById('getall').addEventListener('click', function(){
+		
+		var request2 = new XMLHttpRequest(); 
+		
+		request2.onreadystatechange = getXml; 
+		
+		request2.open('GET', "request.php?q=&all",true); 
+		
+		request2.send();
+		
+	
+	function getXml(){ 
+		
+        
+    	if (request2.readyState === XMLHttpRequest.DONE) { 
+
+		    if (request2.status === 200) { 
+
+        		var response = request2.responseXML; 
+        
+        		console.log(results);
+     
+    			document.getElementById("result").innerHTML=request2.responseText;
+        		
+        		
+        		var results = document.querySelector('result'); 
+        
+        	    var people = response.getElementsByTagName('definition'); 
+        
+        		var list = document.createElement('ol'); 
+        
+        		results.appendChild(list); 
+
+	for (var x = 0; x < people.length; x++) { 
+
+		var person = document.createElement('li'); 
+
+		var Name = document.createTextNode(people[x].getAttribute('name'));
+
+		var Author = document.createTextNode(people[x].getAttribute('author'));
+
+		var text = document.createTextNode(people[x].childNodes[0].nodeValue); 
+
+		person.appendChild(Name);
+
+		person.appendChild(Author);
+
+		person.appendChild(text);
+
+		list.appendChild(person); 
+		
+
+} 
+
+} else { 
+
+	alert('There was a problem with the request.'); 
+
+} 
+}
+
+}
+});
+}
+
 </script>
 
 </head>
 <body style=color:purple;>
+    
 <h1 style="color:black; font-size: 46px;">Web Dictionary</h1>    
+
 <form>Look up word:<input type="text" id="civic"></form>
            
-<button id=search onclick="search1(civic.value)">Search</button> 
-<div id=result></div>
+<button id=search onclick="search1(civic.value)">Search</button>
+
+<button id=getall>Get All Definitions</button>
+
+
+<div id=result style="color:black; font-size: 24px;"></div>
+
+
 </body>
 
 
